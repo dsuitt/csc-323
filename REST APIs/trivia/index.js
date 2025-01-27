@@ -19,7 +19,7 @@ const trivia = [
     const endpoint = urlParts[0];
     const queryParams = new URLSearchParams(urlParts[1] || "");
   
-    if (method === "GET" && endpoint === "/trivia") {
+    if (method === "GET" && endpoint === "/trivia" && queryParams.has("category")) {
       const category = queryParams.get("category");
   
       // Filter questions by category if provided
