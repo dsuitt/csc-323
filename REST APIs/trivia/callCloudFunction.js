@@ -1,17 +1,18 @@
 const axios = require('axios');
 const { execSync } = require('child_process');
 
+const serviceAccount = 'trivia-api-account@my-new-test-project-447723.iam.gserviceaccount.com'
 async function callSquareMyNumber() {
   try {
     // Fetch the identity token using gcloud CLI
-    const token = execSync('gcloud auth print-identity-token', { encoding: 'utf8' }).trim();
+    const token = execSync(`gcloud auth print-identity-token`, { encoding: 'utf8' }).trim();
+    // const token = execSync(`gcloud auth print-access-token --impersonate-service-account=${serviceAccount}`, { encoding: 'utf8' }).trim();
 
     // Prepare the request data
-    const url = 'https://us-west2-my-new-test-project-447723.cloudfunctions.net/triviaRestAPi/trivia/answer';
+    // const url = 'https://us-west2-my-new-test-project-447723.cloudfunctions.net/triviaRestApiOpen?id=1';
+    const url = 'https://us-west2-my-new-test-project-447723.cloudfunctions.net/triviaRestApiOpen/2';
     const data = { 
       id: 2,
-      answer: "101010", 
-      category: "computer science" 
     }
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -19,7 +20,7 @@ async function callSquareMyNumber() {
     };
 
     // Make the POST request
-    const response = await axios.post(url, data, { headers });
+    const response = await axios.get(url, data, { headers });
     console.log('Response:', response.data);
   } catch (error) {
     console.error('Error calling the endpoint:', error.message);

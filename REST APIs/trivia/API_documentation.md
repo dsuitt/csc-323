@@ -8,7 +8,7 @@ The Trivia API allows users to interact with a trivia game, retrieving questions
 
 ## Base URL
 ```
-https://us-west2-my-new-test-project-447723.cloudfunctions.net/triviaRestAPi
+https://us-west2-my-new-test-project-447723.cloudfunctions.net/triviaRestApiOpen
 ```
 
 ## Endpoints

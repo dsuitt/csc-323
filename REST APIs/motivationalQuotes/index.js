@@ -18,14 +18,13 @@ const quotes = [
       return res.status(405).json({ success: false, message: "Method Not Allowed" });
     }
   
-    // Extract the `id` from URL query parameters, body, or path
+    // Extract the `id` from URL query parameters
     const urlParts = req.url.split("/");
     const pathId = urlParts[2]; // Extract `id` from path, e.g., /quote/2
     const queryId = req.query.id;
-    const bodyId = req.body && req.body.id;
   
-    // Determine which ID to use (priority: path > query > body)
-    const id = pathId || queryId || bodyId;
+    // Determine which ID to use (priority: path > query)
+    const id = pathId || queryId;
   
     // Validate the ID
     if (id === undefined || isNaN(id)) {

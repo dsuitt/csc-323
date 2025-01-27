@@ -49,13 +49,12 @@ function handleGetRequest(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const idFromParams = url.pathname.split('/').pop(); // Extract ID from URL if present
   const idFromQuery = url.searchParams.get('id'); // Extract ID from query string
-  const idFromBody = req.body?.id; // Extract ID from request body
-  const id = parseInt(idFromParams || idFromQuery || idFromBody);
+  const id = parseInt(idFromParams || idFromQuery);
 
-  console.log(url, idFromParams, idFromQuery, idFromBody, id)
+  console.log(url, idFromParams, idFromQuery, id)
 
   if (!id) {
-    res.status(400).send("Please provide a question ID via query, URL, or body.");
+    res.status(400).send("Please provide a question ID via query or URL.");
     return;
   }
 
