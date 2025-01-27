@@ -1,1 +1,1 @@
-# csc-323
+# csc-323 course material examples and test cases
