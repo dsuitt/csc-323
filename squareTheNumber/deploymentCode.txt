@@ -1,0 +1,10 @@
+gcloud functions deploy square-my-number
+--gen2 \
+--runtime=nodejs20 \
+--region=us-west2 \
+--source=. \
+--entry-point=squareMyNumber \
+--trigger-http \
+--no-allow-unauthenticated
+
+gcloud alpha functions deploy square-my-number --gen2 --runtime=nodejs20 --region=us-west2 --source=. --entry-point=squareMyNumber --trigger-http --no-allow-unauthenticated
