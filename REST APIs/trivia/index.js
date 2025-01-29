@@ -75,7 +75,7 @@ function handlePostRequest(req, res) {
   const idFromParams = url.pathname.split('/').pop(); // Extract ID from URL if present
   const idFromBody = req.body?.id; // Extract ID from request body
   const userAnswer = req.body?.answer; // Extract user's answer from request body
-  const id = parseInt(idFromParams || idFromBody);
+  const id = parseInt(idFromBody || idFromParams); // Prioritize ID from body
 
   if (!id || !userAnswer) {
     res.status(400).send("Please provide a question ID and answer in the request body.");
