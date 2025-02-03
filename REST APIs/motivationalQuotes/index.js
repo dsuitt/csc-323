@@ -17,6 +17,8 @@ const quotes = [
     if (req.method !== "GET") {
       return res.status(405).json({ success: false, message: "Method Not Allowed" });
     }
+
+    console.log(req.url, req.method);
   
     // Extract the `id` from URL query parameters
     const urlParts = req.url.split("/");
@@ -26,7 +28,7 @@ const quotes = [
     // Determine which ID to use (priority: path > query)
     const id = pathId || queryId;
   
-    // Validate the ID
+    // Validate the ID is a number
     if (id === undefined || isNaN(id)) {
       return res.status(400).json({ success: false, message: "Invalid or missing 'id' parameter" });
     }

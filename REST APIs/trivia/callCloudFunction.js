@@ -1,26 +1,25 @@
-const axios = require('axios');
-const { execSync } = require('child_process');
+const axios = require('axios'); //This is a Node.js module that allows you to make HTTP requests simple.
+const { execSync } = require('child_process'); //This is a Node.js module that allows you to execute shell commands. It is used to run the gcloud command to get the identity token.
 
-const serviceAccount = 'trivia-api-account@my-new-test-project-447723.iam.gserviceaccount.com'
-async function callSquareMyNumber() {
+async function callHttpEndpoint() {
   try {
-    // Fetch the identity token using gcloud CLI
+    // Fetch the identity token for the account you are currently signed into on your machine if you need to provide authentication to your endpoint
     const token = execSync(`gcloud auth print-identity-token`, { encoding: 'utf8' }).trim();
-    // const token = execSync(`gcloud auth print-access-token --impersonate-service-account=${serviceAccount}`, { encoding: 'utf8' }).trim();
 
     // Prepare the request data
-    // const url = 'https://us-west2-my-new-test-project-447723.cloudfunctions.net/triviaRestApiOpen?id=1';
-    const url = 'https://us-west2-my-new-test-project-447723.cloudfunctions.net/triviaRestApiOpen/2';
+    const url = 'https://us-west2-my-new-test-project-447723.cloudfunctions.net/triviaRestApiOpen';
+
     const data = { 
       id: 2,
+      answer: "This is the answer"
     }
+    
     const headers = {
-      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
 
-    // Make the POST request
-    const response = await axios.get(url, data, { headers });
+    // Make the POST request. Notice that the method after axios defines the type of request you are making. In this case, it is a POST request. The first argument is the URL of the endpoint, the second argument is the data you are sending to the endpoint, and the third argument is the headers you are sending to the endpoint.
+    const response = await axios.post(url, data, { headers });
     console.log('Response:', response.data);
   } catch (error) {
     console.error('Error calling the endpoint:', error.message);
@@ -32,4 +31,4 @@ async function callSquareMyNumber() {
 }
 
 // Call the function
-callSquareMyNumber();
+callHttpEndpoint()

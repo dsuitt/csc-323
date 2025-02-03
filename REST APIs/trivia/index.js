@@ -1,3 +1,5 @@
+const functions = require('@google-cloud/functions-framework');
+
 const trivia = [
   { id: 1, question: "What does GCP stand for?", category: "Cloud Fundamentals", answer: "Google Cloud Platform" },
   { id: 2, question: "What is the primary billing unit for cloud resources in GCP?", category: "Cloud Fundamentals", answer: "Projects" },
@@ -29,11 +31,11 @@ const correctResponses = [
   "You nailed it!"
 ];
 
-exports.triviaApi = (req, res) => {
+functions.http('triviaApi', async (req, res) => {
   const method = req.method;
   const url = new URL(req.url, `http://${req.headers.host}`);
   const path = url.pathname;
-  console.log(method, url, path)
+  console.log(method, url, path, req.body)
 
   if (method === "GET") {
     handleGetRequest(req, res);
@@ -42,7 +44,7 @@ exports.triviaApi = (req, res) => {
   } else {
     res.status(405).send("Method Not Allowed");
   }
-};
+});
 
 // Handle GET requests to retrieve a question
 function handleGetRequest(req, res) {
@@ -75,7 +77,7 @@ function handlePostRequest(req, res) {
   const idFromParams = url.pathname.split('/').pop(); // Extract ID from URL if present
   const idFromBody = req.body?.id; // Extract ID from request body
   const userAnswer = req.body?.answer; // Extract user's answer from request body
-  const id = parseInt(idFromParams || idFromBody);
+  const id = parseInt(idFromBody || idFromParams); // Prioritize ID from body
 
   if (!id || !userAnswer) {
     res.status(400).send("Please provide a question ID and answer in the request body.");
