@@ -1,0 +1,9 @@
+{
+    "dependencies": {
+        "@google-cloud/functions-framework": "^3.0.0",
+        "@google-cloud/storage": "^7.15.0"
+    },
+    "scripts": {
+        "start": "functions-framework --target=squareMyNumber"
+      }
+}
