@@ -1,0 +1,12 @@
+{
+    "name": "bigquery-examples",
+    "version": "1.0.0",
+    "description": "Examples for using BigQuery with Google Cloud Functions",
+    "main": "index.js",
+    "scripts": {
+        "start": "functions-framework --target=helloBigQuery"
+    },
+    "dependencies": {
+        "@google-cloud/functions-framework": "^1.7.1"
+    }
+}
