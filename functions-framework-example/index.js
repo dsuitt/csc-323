@@ -1,5 +1,4 @@
 const functions = require('@google-cloud/functions-framework');
-const { Storage } = require('@google-cloud/storage');
 
 
 functions.http('squareMyNumber', async (req, res) => {

@@ -22,7 +22,6 @@ functions.http('helloBigQuery', async (req, res) => {
   // Execute the query
   try {
     const [rows] = await bigquery.query(options);
-    // Send the results
     res.status(200).send(rows);
   } catch (err) {
     console.error(err);

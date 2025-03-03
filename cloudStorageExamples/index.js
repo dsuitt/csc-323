@@ -3,17 +3,18 @@ const fs = require('fs');
 const path = require('path');
 
 const storage = new Storage();
-const bucketName = ''; 
+const bucketName = 'csc_323_bucket_test'; 
 
 
 async function uploadFile(localFilePath) {
     const fileName = path.basename(localFilePath);
+    const prefix = 'example/csv/'
     await storage.bucket(bucketName).upload(localFilePath, {
-        destination: fileName,
+        destination: prefix + fileName,
     });
     console.log(`Uploaded: ${localFilePath} → gs://${bucketName}/${fileName}`);
 }
-
+filepath = '/tmp/sales_report.csv'
 
 async function downloadFile(cloudFileName, destinationPath) {
     await storage.bucket(bucketName).file(cloudFileName).download({ destination: destinationPath });
@@ -48,22 +49,22 @@ async function listFilesWithPrefix(prefix) {
 
 
 async function runExamples() {
-    await uploadFile('project_ardent/2025/january/sales_report.csv');
-    await uploadFile('project_ardent/2025/january/analytics_data.csv');
-    await uploadFile('project_ardent/documents/guides/getting_started.txt');
+        // await uploadFile('project_ardent/2025/january/sales_report.csv');
+        // await uploadFile('project_ardent/2025/january/analytics_data.csv');
+        // await uploadFile('project_ardent/documents/guides/getting_started.txt');
 
-    const metadata = {
-        category: 'legal',
-        lastUpdated: new Date().toISOString(),
-    };
+    // const metadata = {
+    //     category: 'legal',
+    //     lastUpdated: new Date().toISOString(),
+    // };
 
-    await uploadFileWithMetadata('project_ardent/documents/legal/terms_of_service.txt', metadata);
+    // await uploadFileWithMetadata('project_ardent/documents/legal/terms_of_service.txt', metadata);
 
-    await listAllFiles();
+    // await listAllFiles();
 
     await listFilesWithPrefix('project_ardent/2025/january/');
 
-    await downloadFile('sales_report.csv', 'downloaded_sales_report.csv');
+    // await downloadFile('sales_report.csv', 'downloaded_sales_report.csv');
 
 
 }
