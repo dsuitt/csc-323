@@ -1,0 +1,8 @@
+{
+    "scripts": {
+      "start": "functions-framework --target=helloGCS"
+    },
+    "dependencies": {
+      "@google-cloud/functions-framework": "^3.0.0"
+    }
+  }
