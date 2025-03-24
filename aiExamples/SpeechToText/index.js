@@ -1,14 +1,14 @@
-const functions = require('@google-cloud/functions-framework');
 const { Storage } = require('@google-cloud/storage');
 
 const storage = new Storage();
-
+const speechV2 = require('@google-cloud/speech').v2;
 
 const project = 'my-new-test-project-447723'
 const location = 'us-west1'
-const targetBucket = 'csc323-stt-transcripts'
-const sourceBucket = 'csc323-audio-files'
-const googleSTTModel = 'chirp'
+const targetBucket = 'csc_323_bucket'
+const sourceBucket = 'csc_323_bucket'
+const googleSTTModel = 'chirp_2'
+const googleSTTRecognizer = '_'
 
 async function main(filePath, user) {
 
@@ -32,7 +32,6 @@ async function main(filePath, user) {
 
 
 async function submitAsyncTranscriptionJobV2(sourceBucket, filePath) {
-    const speechV2 = require('@google-cloud/speech').v2;
     const client = new speechV2.SpeechClient({ servicePath: 'us-central1-speech.googleapis.com' });
     const gcsUri = `gs://${sourceBucket}/${filePath}`;
     const output = `gs://${targetBucket}`;
@@ -67,13 +66,11 @@ async function submitAsyncTranscriptionJobV2(sourceBucket, filePath) {
 
     // Submit the long-running transcription job (v2 API)
     const [operation] = await client.batchRecognize(request);
-    const operationName = operation.name;
+    console.log('Async transcription job submitted: ', operation.name);
 }
 
 
 async function transcribeSynchronouslyV2(bucket, filePath) {
-
-    const speechV2 = require('@google-cloud/speech').v2;
     const client = new speechV2.SpeechClient({ servicePath: 'us-central1-speech.googleapis.com' });
     const uri = `gs://${bucket}/${filePath}`
 
@@ -100,3 +97,5 @@ async function transcribeSynchronouslyV2(bucket, filePath) {
     console.log('Transcript: ', transcript);
 
 }
+
+main().catch(console.error);
