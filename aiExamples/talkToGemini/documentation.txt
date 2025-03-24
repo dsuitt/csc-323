@@ -1,0 +1,5 @@
+https://cloud.google.com/vertex-ai/generative-ai/docs/reference/nodejs/latest/vertexai/generativemodel
+
+https://cloud.google.com/vertex-ai/generative-ai/docs/reference/nodejs/latest/vertexai/chatsession
+
+https://cloud.google.com/vertex-ai/generative-ai/docs/reference/python/latest/vertexai.generative_models.GenerationConfig
