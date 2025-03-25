@@ -3,7 +3,7 @@ const functions = require('@google-cloud/functions-framework');
 
 const project = 'my-new-test-project-447723'
 const location = 'us-west1'
-const model = process.env.MODEL || 'gemini-2.0-flash-lite';
+const model = process.env.MODEL || 'gemini-1.5-flash';
 const systemInstruction = 'You are a teachers assistant who is helping students answer questions about google cloud services.';
 
 async function main() {
@@ -16,7 +16,7 @@ async function main() {
         contents: [{ role: 'user', parts: [{ text: userPrompt }] }]
     });
 
-    const textResponse = response.contents[0].parts[0].text;
+    const textResponse = response.response.candidates[0].content.parts[0].text
 
     console.log(textResponse);
 }
@@ -26,21 +26,17 @@ async function chat() {
 
     const userPrompt = 'My name is Doug. Can you tell me what the difference is between Vertex AI and AutoML?';
 
-    const response = await chatModel.generateContent({
-        contents: [{ role: 'user', parts: [{ text: userPrompt }] }]
-    });
+    const response = await chatModel.sendMessage(userPrompt);
 
-    const textResponse = response.contents[0].parts[0].text;
+    const textResponse = response.response.candidates[0].content.parts[0].text
 
     console.log(textResponse);
-    
+
     const userPrompt2 = 'What is my name?';
 
-    const response2 = await chatModel.generateContent({
-        contents: [{ role: 'user', parts: [{ text: userPrompt2 }] }]
-    });
+    const response2 = await chatModel.sendMessage(userPrompt2);
 
-    const textResponse2 = response2.contents[0].parts[0].text;
+    const textResponse2 = response2.response.candidates[0].content.parts[0].text
 
     console.log(textResponse2);
 
@@ -49,23 +45,20 @@ async function chat() {
 
 
 function createModel() {
-     const vertexAI = new VertexAI({ project: project, location: location });
+    const vertexAI = new VertexAI({ project: project, location: location });
 
     const config = {
         temperature: 0.75,
-        maxTokens: 100,
-        topP: 1.0,
-        topK: 40,
     }
-     const generativeModel = vertexAI.getGenerativeModel({
-         model,
-         systemInstruction: {
-             role: 'system',
-             parts: [{ "text": systemInstruction }]
-         },
-         generationConfig: config
-     });
-     return generativeModel;
+    const generativeModel = vertexAI.getGenerativeModel({
+        model,
+        systemInstruction: {
+            role: 'system',
+            parts: [{ "text": systemInstruction }]
+        },
+        generationConfig: config
+    });
+    return generativeModel;
 }
 
 function createChatModel() {
@@ -75,9 +68,6 @@ function createChatModel() {
 
     const config = {
         temperature: 0.75,
-        maxTokens: 100,
-        topP: 1.0,
-        topK: 40,
     }
     const chatSession = generativeModel.startChat({
         systemInstruction: {
