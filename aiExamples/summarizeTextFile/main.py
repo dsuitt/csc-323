@@ -3,7 +3,7 @@ import vertexai
 from vertexai.generative_models import GenerativeModel
 from google.cloud import storage
 
-vertexai.init(project="<YOUR_PROJECT_ID>", location="us-central1")
+vertexai.init(project="my-new-test-project-447723", location="us-central1")
 
 model = GenerativeModel(
     model_name="gemini-1.5-pro-001",
