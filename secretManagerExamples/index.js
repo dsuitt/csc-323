@@ -1,7 +1,7 @@
 const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
 const client = new SecretManagerServiceClient();
 
-const projectId = '';
+const projectId = 'my-new-test-project-447723';
 
 async function createSecret(secretId, secretValue) {
 
