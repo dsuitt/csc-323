@@ -1,3 +1,7 @@
+substitutions:
+  _BUCKET_NAME: '[YOUR-UNIQUE-BUCKET-NAME]'
+
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['functions', 'deploy', 'pirate-translator', '--runtime=python311', '--trigger-http', '--entry-point=transform_file', '--no-allow-unauthenticated', '--region=us-central1', '--source=.']
+  args: ['functions', 'deploy', 'pirate-translator', '--runtime=python311', '--trigger-http', '--entry-point=transform_file', '--no-allow-unauthenticated', '--region=us-central1', '--source=.', '--trigger-event-filters=type=google.cloud.storage.object.v1.finalized',
+    '--trigger-event-filters=bucket=$_BUCKET_NAME']
