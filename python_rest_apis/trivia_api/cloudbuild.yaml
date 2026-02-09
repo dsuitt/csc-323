@@ -1,0 +1,3 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['functions', 'deploy', 'trivia_api', '--runtime=python311', '--trigger-http', '--entry-point=trivia_api', '--allow-unauthenticated', '--region=us-central1', '--service-account=62487974870-compute@developer.gserviceaccount.com']

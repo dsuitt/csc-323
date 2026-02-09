@@ -1,0 +1,3 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['functions', 'deploy', 'square-the-number', '--runtime=python310', '--trigger-http', '--entry-point=square_number', '--allow-unauthenticated', '--region=us-central1', '--source=.', '--service-account=62487974870-compute@developer.gserviceaccount.com']
