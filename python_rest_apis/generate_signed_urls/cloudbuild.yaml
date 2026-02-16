@@ -1,0 +1,4 @@
+
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['functions', 'deploy', 'generate-signed-url', '--runtime=python311', '--trigger-http', '--entry-point=generate_signed_url', '--allow-unauthenticated', '--region=us-central1', '--source=.', '--service-account=test-function-runner@my-new-test-project-447723.iam.gserviceaccount.com']

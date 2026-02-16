@@ -1,5 +1,5 @@
 substitutions:
-  _BUCKET_NAME: '[YOUR-UNIQUE-BUCKET-NAME]'
+  _BUCKET_NAME: 'csc323-test-bucket'
 
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
